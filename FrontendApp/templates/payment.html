@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+    <link  rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<div class="col-12 col-lg-11">
+			<div class="card card0 rounded-0">
+				<div class="row">
+					<div class="col-md-5 d-md-block d-none p-0 box">
+							{% for d in seat_data %}
+						<div class="card rounded-0 border-0 card1" id="bill">
+
+							<h3 id="heading1">Payment Summary</h3>
+							<div class="row">
+
+								<div class="col-lg-7 col-8 mt-4 line pl-4">
+
+									<h2 class="bill-head">{{d.Movie}}</h2>
+									<small class="bill-date"></small>
+
+								</div>
+								<div class="col-lg-5 col-4 mt-4">
+									<h2 class="bill-head px-xl-5 px-lg-4">{{d.Seat}}</h2>
+								</div>
+
+							</div>
+
+							<div class="row">
+								<div class="col-md-12 red-bg">
+									<p class="bill-date" id="total-label">Total Amount Payable</p>
+									<h2 class="bill-head" id="total">₹ {{d.Price}}</h2>
+									<small class="bill-date" id="total-label1"> includes all taxes</small>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+
+					<div class="col-md-7 col-sm-12 p-0 box">
+
+						<div class="card rounded-0 border-0 card2" id="paypage">
+							<div class="form-card">
+			                    <h2 id="heading2" class="text-danger">Payment Method</h2>
+			                    <div class="radio-group">
+			                        <div class='radio' data-value="credit"><img src="https://i.imgur.com/28akQFX.jpg" width="200px" height="60px"></div>
+
+			                        <br>
+			                    </div>
+			                    <label class="pay">Name on Card</label>
+			                    <input type="text"  id="nameInput" required name="holdername" placeholder="Enter Name">
+			                    <div class="row">
+			                        <div class="col-8 col-md-6">
+			                            <label class="pay">Card Number</label>
+<!--&lt;!&ndash;								-->
+			                            <input type="tel" name="cardno" id="cnoInput" class="form-control" placeholder="0000-0000-0000-0000" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}"  >
+			                        </div>
+			                        <div class="col-4 col-md-6">
+			                            <label class="pay">CVV</label>
+			                            <input required type="password" id="passInput" name="cvcpwd" placeholder="&#9679;&#9679;&#9679;" class="placeicon" minlength="3" maxlength="3">
+			                        </div>
+			                    </div>
+			                    <div class="row">
+			                        <div class="col-md-12">
+			                            <label class="pay" >Expiration Date</label>
+			                        </div>
+			                        <div class="col-md-12">
+			                            <input type="tel"  required pattern="\b(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})\b" min="2023-07" max="2050-12" name="exp" id="expInput"  placeholder="MM/YY" >
+
+			                        </div>
+			                    </div>
+			                    <div class="row">
+			                        <div class="col-md-6">
+
+			                           <button  id="submitButton" onclick="sweet()" class="btn btn-info placeicon">Make Payment</button>
+
+			                        </div>
+			                    </div>
+			                </div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+	background-color: #000000;
+}
+
+/*Card containing 2 cards*/
+.card0 {
+	margin: 40px 12px 15px 12px;
+	border: 0;
+}
+
+/*Left Side card*/
+.card1 {
+	margin: 0;
+	padding: 15px;
+	padding-top: 25px;
+	padding-bottom: 0px;
+	background: #263238;
+	height: 100%;
+}
+
+.bill-head {
+	color: #ffffff;
+	font-weight: bold;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	font-size: 30px;
+}
+
+.line {
+	border-right: 1px grey solid;
+}
+
+.bill-date {
+	color: #BDBDBD;
+}
+
+.red-bg {
+	margin-top: 25px;
+	margin-left: 0px;
+	margin-right: 0px;
+	background-color: #F44336;
+	padding-left: 20px !important;
+	padding: 25px 10px 25px 15px;
+}
+
+#total {
+	margin-top: 0px;
+	padding-left: 7px;
+}
+
+#total-label {
+	margin-bottom: 0px;
+	color: #ffffff;
+	padding-left: 7px;
+}
+
+#heading1 {
+	color: #ffffff;
+	font-size: 20px;
+	padding-left: 10px;
+}
+
+#heading2 {
+	font-size: 27px;
+	color: #D50000;
+}
+
+/*For font-awesome icons in Placeholder*/
+.placeicon {
+	font-family: fontawesome !important;
+}
+
+/*Right Side Card*/
+.card2 {
+	padding: 25px;
+	margin: 0;
+	height: 100%;
+}
+
+.form-card .pay {
+	font-weight: bold;
+}
+
+.form-card input, .form-card textarea {
+    padding: 10px 8px 10px 8px;
+    border: none;
+    border: 1px solid lightgrey;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.form-card input:focus, .form-card textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: none;
+    font-weight: bold;
+    border: 1px solid gray;
+    outline-width: 0;
+}
+
+.btn-info {
+	color: #ffffff !important;
+}
+
+/*Imaged Radio Buttons*/
+.radio-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.radio {
+    display:inline-block;
+    width: 204;
+    height: 64;
+    border-radius: 0;
+    background: lightblue;
+    box-sizing: border-box;
+    border: 2px solid lightgrey;
+    cursor:pointer;
+    margin: 8px 25px 8px 0px;
+}
+
+.radio:hover {
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+}
+
+.radio.selected {
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.4);
+}
+
+/*Fit image in bootstrap div*/
+.fit-image{
+    width: 100%;
+    object-fit: cover;
+}
+</style>
+
+
+<script>
+https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js
+</script>
+<script>
+https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+					<script>
+					  function sweet(){
+                       swal.fire({
+                         title: 'Enjoy Your Movie',
+                         text: 'Your Booking is Successful ',
+                         imageUrl: '{% static 'img/Tic-Book-removebg-preview.png' %}',
+                         imageWidth: 400,
+                         imageHeight: 300,
+                         imageAlt: 'Custom image',
+                         confirmButtonText: "View Ticket",
+
+						 }).then((result) => {
+  						 if (result.isConfirmed) {
+    					// Redirect to OpenAI's website
+    					window.location.href = "{% url 'ticket' %}";
+  }
+                        })
+                        }
+
+
+                   </script>
+
+<script>
+let name = document.getElementById('nameInput');
+		let cno = document.getElementById('cnoInput');
+		let pass = document.getElementById('passInput');
+		let exp = document.getElementById('expInput');
+		let submitButton = document.getElementById('submitButton');
+		submitButton.disabled = true;
+		const cnoPattern = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+		const datePattern = /^(0[1-9]|1[0-2])\/(2[3-9]|(?:3[0-9]))$/;
+
+		function validateFields() {
+			const isCnoValid = cnoPattern.test(cno.value);
+			const isDateValid = datePattern.test(exp.value);
+			const passValue = pass.value.trim();
+			if (name.value && cno.value && pass.value && exp.value && isCnoValid && passValue.length >= 3 && isDateValid) {
+				submitButton.disabled = false;
+			} else {
+				submitButton.disabled = true;
+			}
+		};
+
+		name.addEventListener('input', validateFields);
+		cno.addEventListener('input', validateFields);
+		pass.addEventListener('input', validateFields);
+		exp.addEventListener('input', validateFields);
+</script>
+</body>
+</html>

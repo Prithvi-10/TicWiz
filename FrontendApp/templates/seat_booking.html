@@ -1,0 +1,370 @@
+<!doctype html>
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Booking</title>
+    <link rel="icon" href="{% static 'img/Tic-Book-removebg-preview.png' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body onload="getOccupied()">
+    <div>
+        <header class="main_menu single_page_menu">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <a class="navbar-brand" href="index.html"> <img
+                                    src="{% static 'img/Tic-Book-removebg-preview.png' %}" width="154px" height="120px"
+                                    alt="logo"> </a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="menu_icon"><i class="fas fa-bars"></i></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'home_page' %}">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <li class="nav-item dropdown">
+                                        <!--                                        <a class="nav-link" href="{% url 'category' %}">Events</a>-->
+                                        <a class="nav-link dropdown-toggle" href="{% url 'category' %}"
+                                            id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            Events
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{% url 'movie_one' %}"> Movies</a>
+
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'contactus' %}">Contact Us</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
+                                    </li>
+                                    </li>
+
+                                    <!--                                <li class="nav-item dropdown">-->
+                                    <!--                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown"-->
+                                    <!--                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                    <!--                                        Blog-->
+                                    <!--                                    </a>-->
+                                    <!--                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                                    <!--                                        <a class="dropdown-item" href="blog.html"> blog</a>-->
+                                    <!--                                        <a class="dropdown-item" href="single-blog.html">Single blog</a>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </li>-->
+                                    <!--                                <li class="nav-item dropdown">-->
+                                    <!--                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown1"-->
+                                    <!--                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                    <!--                                        pages-->
+                                    <!--                                    </a>-->
+                                    <!--                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown1">-->
+                                    <!--                                        <a class="dropdown-item" href="elements.html">Elements</a>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </li>-->
+                                    <!--                                <li class="nav-item">-->
+                                    <!--                                    <a class="nav-link" href="contact.html">Contact</a>-->
+                                    <!--                                </li>-->
+                                </ul>
+                            </div>
+                            <div>
+                                {% if request.session.username1 %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown5"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="btn_1 d-none d-sm-block"> {{request.session.username1}}</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{% url 'edituser' %}"> Edit</a>
+                                        <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                                    </div>
+                                </li>
+                                <!--                                <span></span>-->
+                                {% else %}
+                                <a class="nav-link" href="{% url 'signin' %}">Signup/Login</a>
+                                {% endif %}
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div style="margin-top:400px;">
+
+        <div class="movie-container" style="margin-top:700px;text-align:center">
+
+            {% for d in det_data %}
+            <h2 value="120" style="font-family:'Times New Roman', Times, serif; color:gold ;">{{d.Movie_Name}}</h2>
+            {% endfor %}
+
+
+
+        </div>
+
+
+        <div class="container">
+
+            <div>
+                <ul class="showcase" style=" width: 500px; height: 50px; margin-left: 160px;">
+                    <li>
+                        <div class="seat"></div>
+                        <small>N/A</small>
+                    </li>
+
+                    <li>
+                        <div class="seat selected"></div>
+                        <small>Selected</small>
+                    </li>
+
+                    <li>
+                        <div class="seat occupied"></div>
+                        <small>Occupied</small>
+                    </li>
+                </ul>
+            </div><br>
+
+            {%for d in det_data %}
+            <div class="screen" style="width:782.2px; height:120.7px"><img src="{{d.Movie_Image.url}}" width="782.2px"
+                    height="120.7px" alt="" style="object-fit: fill;"></div>
+            {% endfor %}
+
+            <p style="text-align:center;margin-top:50px;color:grey">(Note:Currently you can book tickets for movies in Urvashi Theaters only)</p>
+            <div class="row" style="display: flex; justify-content: center;">
+
+                <form method="post" action="{% url 'seatconfirm'  %}" style="width: 100%; margin-top:100px">
+                    {% csrf_token %}
+                    <div class="form-container" style="display: flex; width: 100%; justify-content: space-around;">
+                        <div class="left">
+                            <h3 style="padding-bottom: 50px;">
+                                <label for="seats">Select Seats:</label>
+                            </h3>
+                            <div id="seat-options" class="row">
+                                <div class="seat" data-seat="A1"></div>
+                                <div class="seat" data-seat="A2"></div>
+                                <div class="seat" data-seat="A3"></div>
+                                <div class="seat" data-seat="A4"></div>
+                                <div class="seat" data-seat="A5"></div>
+                                <div class="seat" data-seat="A6"></div>
+                            </div>
+                            <div id="seat-options" class="row">
+                                <div class="seat" data-seat="B1"></div>
+                                <div class="seat" data-seat="B2"></div>
+                                <div class="seat" data-seat="B3"></div>
+                                <div class="seat" data-seat="B4"></div>
+                                <div class="seat" data-seat="B5"></div>
+                                <div class="seat" data-seat="B6"></div>
+                            </div>
+                            <div id="seat-options" class="row">
+                                <div class="seat" data-seat="C1"></div>
+                                <div class="seat" data-seat="C2"></div>
+                                <div class="seat" data-seat="C3"></div>
+                                <div class="seat" data-seat="C4"></div>
+                                <div class="seat" data-seat="C5"></div>
+                                <div class="seat" data-seat="C6"></div>
+                            </div>
+                            <div id="seat-options" class="row">
+                                <div class="seat" data-seat="D1"></div>
+                                <div class="seat" data-seat="D2"></div>
+                                <div class="seat" data-seat="D3"></div>
+                                <div class="seat" data-seat="D4"></div>
+                                <div class="seat" data-seat="D5"></div>
+                                <div class="seat" data-seat="D6"></div>
+                            </div>
+                            <div id="seat-options" class="row">
+                                <div class="seat" data-seat="E1"></div>
+                                <div class="seat" data-seat="E2"></div>
+                                <div class="seat" data-seat="E3"></div>
+                                <div class="seat" data-seat="E4"></div>
+                                <div class="seat" data-seat="E5"></div>
+                                <div class="seat" data-seat="E6"></div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:300px;margin-left:-400px">
+                             <p class="text" style="text-align:center;">
+                                 <input  type="hidden" name='price' id='totalprice' value=''>
+                                You have selected <span id="count">0</span> seats for a price of Rs <span id="total"  >0</span>
+                             </p>
+                        </div>
+
+                        <div class="right">
+                            <h3> Details of your Booking:</h3><br><br>
+                            <input class="form-control" type="hidden" id="" value="{{request.session.username1 }}"
+                                name="user">
+                            <input class="form-control form-control-sm" readonly name="name" type="hidden"
+                                value="{{request.session.username1 }}" aria-label=".form-control-sm example"><br>
+                            <input class="form-control form-control-sm"  required readonly name="seats" id="selected-seats"
+                                placeholder="Seats"><br>
+                            {% for d in det_data %}
+
+                            <input class="form-control" type="text" name="screen" value="{{d.Movie_Screen}}"
+                                aria-label="readonly input example" readonly><br>
+                            <input class="form-control" type="text" name="time" value="{{d.Show_Time}}"
+                                aria-label="readonly input example" readonly>
+                            <input class="form-control" type="hidden" name="movie" value="{{d.Movie_Name}}"
+                                aria-label="readonly input example" readonly><br>
+                            {% endfor %}
+                            <input class="form-control" required type="date"  name="date"  min="2023-07-02" max="2023-08-02"><br><br>
+                            <button type="submit" class="btn btn-warning btn-lg" id="bookButton">Book Seats</button>
+                        </div>
+                    </div>
+                </form>
+            </div><br><br>
+
+
+
+
+
+
+
+
+
+        <footer class="footer_part">
+            <div class="footer_top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <a href="index.html" class="footer_logo_iner"> <img src="{% static 'img/Tic-Book-removebg-preview.png' %}" width="154px" height="120px" alt="#"> </a>
+                                <p>Enjoy Your Movies  With Us
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <h4>Contact Info</h4>
+                                <p>Address : Demo Website,Pitch Street,Kerala
+                                    India.</p>
+                                <p>Phone : +8880 44338899</p>
+                                <p>Email : demo@ticket.com</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <h4>Important Link</h4>
+                                <ul class="list-unstyled">
+
+                                    <li><a href="{% url 'edituser' %}">My Account</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+<!--                        <div class="col-sm-6 col-lg-3">-->
+<!--                            <div class="single_footer_part">-->
+<!--                                <h4>Newsletter</h4>-->
+<!--                                <p>Heaven fruitful doesn't over lesser in days. Appear creeping seasons deve behold-->
+<!--                                    bearing-->
+<!--                                    days-->
+<!--                                    open-->
+<!--                                </p>-->
+<!--                                <div id="mc_embed_signup">-->
+<!--                                    <form target="_blank"-->
+<!--                                        action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"-->
+<!--                                        method="get" class="subscribe_form relative mail_part">-->
+<!--                                        <input type="email" name="email" id="newsletter-form-email"-->
+<!--                                            placeholder="Email Address" class="placeholder hide-on-focus"-->
+<!--                                            onfocus="this.placeholder = ''"-->
+<!--                                            onblur="this.placeholder = ' Email Address '">-->
+<!--                                        <button type="submit" name="submit" id="newsletter-submit"-->
+<!--                                            class="email_icon newsletter-submit button-contactForm"><i-->
+<!--                                                class="far fa-paper-plane"></i></button>-->
+<!--                                        <div class="mt-10 info"></div>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+     <script>
+            function getOccupied() {
+                var occupied_seats = "{{ occupied_seats }}";
+                const occupied_seats_array = occupied_seats.split(',');
+                console.log(occupied_seats_array);
+                occupied_seats_array.forEach(Oseat => {
+                    seatOptions.forEach(seatOption => {
+                        const seat = seatOption.getAttribute('data-seat');
+                        if (seat == Oseat) {
+                            seatOption.classList.add('occupied');
+                        }
+                    });
+                });
+            }
+
+            let cspan = document.getElementById("count")
+            let tspan = document.getElementById("total")
+            const button = document.getElementById('bookButton');
+            button.disabled = true;
+            let selectedSeats = [];
+            let price = 150
+            let count = 0
+
+            // Function to handle seat selection
+            function selectSeat(seatElement) {
+                seatElement.classList.toggle('selected');
+                const seat = seatElement.getAttribute('data-seat');
+                console.log(seat);
+
+                if (selectedSeats.includes(seat)) {
+                    selectedSeats = selectedSeats.filter(s => s !== seat);
+                } else {
+                    selectedSeats.push(seat);
+                }
+
+                count = selectedSeats.length
+                total = selectedSeats.length * price
+                cspan.textContent = count
+                tspan.textContent = total
+                if (count==0) {
+                    button.disabled = true;
+                } else {
+                    button.disabled = false;
+                }
+
+                document.getElementById('selected-seats').value = selectedSeats.join(',');
+                document.getElementById('totalprice').value = total;
+            }
+
+            // Add click event listeners to seat options
+            const seatOptions = document.querySelectorAll('.seat');
+            seatOptions.forEach(seatOption => {
+                seatOption.addEventListener('click', () => selectSeat(seatOption));
+            });
+
+        </script>
+
+
+</body>
+
+</html>

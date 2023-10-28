@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-body">
+                    <h4 class="card-title">Add Matches</h4>
+                    <p class="card-description">Add matches here</p>
+                  <form  method="post" action="{% url 'savesports' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+
+                      <div class="form-group">
+                          <select class="form-control" name="category" >
+                              <option>Select Category</option>
+                              {% for d in catg_data %}
+                              <option>{{d.Name}}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <select class="form-control" name="subcategory" >
+                              <option>Select Subcategory</option>
+                              {% for d in sub_data %}
+                              <option>{{d.Subcategory_name}}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Match Info</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Match Info" name="matchinfo" value="{{sportsdata.Match_Info}}">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Match Venue</label>
+                        <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Venue" name="matchvenue" value="{{sportsdata.Match_Venue}}">
+                      </div>
+                        <div class="form-group">
+                        <label for="exampleInputEmail4">Match Date</label>
+                        <input type="text" class="form-control" id="exampleInputEmail4" placeholder="Date" name="matchdate" value="{{sportsdata.Match_Date}}">
+                      </div>
+                        <div class="form-group">
+                        <label for="exampleInputEmail5">Match time</label>
+                        <input type="text" class="form-control" id="exampleInputEmail5" placeholder="Time" name="matchtime" value="{{sportsdata.Match_Time}}">
+                      </div>
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleInputPassword4">Password</label>-->
+<!--                        <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleSelectGender">Gender</label>-->
+<!--                        <select class="form-control" id="exampleSelectGender">-->
+<!--                          <option>Male</option>-->
+<!--                          <option>Female</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+                      <div class="form-group">
+                        <label>Image Upload</label>
+                        <input type="file" name="matchimage" class="file-upload-default" value="{{sportsdata.Match_Image}}">
+                        <div class="input-group col-xs-12">
+                          <input type="file" class="form-control file-upload-info"  placeholder="Upload Image" name="matchimage" value="{{sportsdata.Match_Image}}">
+
+
+
+                        </div>
+                      </div>
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleInputCity1">City</label>-->
+<!--                        <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleTextarea1">Textarea</label>-->
+<!--                        <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>-->
+<!--                      </div>-->
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+       {% if messages %}
+          {% for i in messages %}
+               {% if i.tags == 'warning' %}
+                   <script>
+                        swal('{{i}}','','warning');
+                   </script>
+               {% elif i.tags == 'error' %}
+                   <script>
+                        swal('{{i}}','','error');
+                   </script>
+               {% else%}
+                   <script>
+                        swal('{{i}}','','success');
+                   </script>
+               {% endif %}
+         {% endfor %}
+       {% endif %}
+</body>
+</html>
+{% endblock %}

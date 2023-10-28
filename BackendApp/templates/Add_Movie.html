@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-body">
+                    <h4 class="card-title">Add Events</h4>
+                    <p class="card-description">Add events here</p>
+                  <form  method="post" action="{% url 'savemovie' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+
+                      <div class="form-group">
+                          <select class="form-control" name="category" >
+                              <option>Select Category</option>
+                              {% for d in catgdata %}
+                              <option>{{d.Name}}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <select class="form-control" name="subcategory" >
+                              <option>Select Subcategory</option>
+                              {% for d in subdata %}
+                              <option>{{d.Subcategory_name}}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Movie Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Movie Name" name="moviename">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Description</label>
+                        <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Description" name="moviedescription">
+                      </div>
+                        <div class="form-group">
+                        <label for="exampleInputEmail4">Cast</label>
+                        <input type="text" class="form-control" id="exampleInputEmail4" placeholder="Cast" name="moviecast">
+                      </div>
+                        <div class="form-group">
+                        <label for="exampleInputEmail5">Run time</label>
+                        <input type="text" class="form-control" id="exampleInputEmail5" placeholder="Runtime" name="movietime">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName2">Movie Screen</label>
+                        <input type="text" class="form-control" id="exampleInputName2" placeholder="Movie Screen" name="moviescreen">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName3">Show Time</label>
+                        <input type="text" class="form-control" id="exampleInputName3" placeholder="Show Time" name="showtime">
+                      </div>
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleInputPassword4">Password</label>-->
+<!--                        <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleSelectGender">Gender</label>-->
+<!--                        <select class="form-control" id="exampleSelectGender">-->
+<!--                          <option>Male</option>-->
+<!--                          <option>Female</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+                      <div class="form-group">
+                        <label>Image Upload</label>
+                        <input type="file" name="movieimage" class="file-upload-default" >
+                        <div class="input-group col-xs-12">
+                          <input type="file" class="form-control file-upload-info"  placeholder="Upload Image" name="movieimage">
+
+
+
+                        </div>
+                      </div>
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleInputCity1">City</label>-->
+<!--                        <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleTextarea1">Textarea</label>-->
+<!--                        <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>-->
+<!--                      </div>-->
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+       {% if messages %}
+          {% for i in messages %}
+               {% if i.tags == 'warning' %}
+                   <script>
+                        swal('{{i}}','','warning');
+                   </script>
+               {% elif i.tags == 'error' %}
+                   <script>
+                        swal('{{i}}','','error');
+                   </script>
+               {% else%}
+                   <script>
+                        swal('{{i}}','','success');
+                   </script>
+               {% endif %}
+         {% endfor %}
+       {% endif %}
+</body>
+</html>
+{% endblock %}

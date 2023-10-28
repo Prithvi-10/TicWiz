@@ -1,0 +1,306 @@
+
+<!doctype html>
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>gaming</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}" >
+</head>
+<body>
+<div>
+  <header class="main_menu single_page_menu">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a class="navbar-brand" href="index.html"> <img src="{% static 'img/logo.png' %}" alt="logo"> </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="menu_icon"><i class="fas fa-bars"></i></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'home_page' %}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <li class="nav-item dropdown">
+<!--                                        <a class="nav-link" href="{% url 'category' %}">Events</a>-->
+                                          <a class="nav-link dropdown-toggle" href="{% url 'category' %}" id="navbarDropdown2"
+                                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Events
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{% url 'movie_one' %}"> Movies</a>
+                                            <a class="dropdown-item" href="{% url 'sports_one' %}">Sports</a>
+                                        </div>
+                                    </li>
+                                </li>
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link" href="team.html">team</a>-->
+<!--                                </li>-->
+<!--                                <li class="nav-item dropdown">-->
+<!--                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown"-->
+<!--                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                                        Blog-->
+<!--                                    </a>-->
+<!--                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                                        <a class="dropdown-item" href="blog.html"> blog</a>-->
+<!--                                        <a class="dropdown-item" href="single-blog.html">Single blog</a>-->
+<!--                                    </div>-->
+<!--                                </li>-->
+<!--                                <li class="nav-item dropdown">-->
+<!--                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown1"-->
+<!--                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                                        pages-->
+<!--                                    </a>-->
+<!--                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown1">-->
+<!--                                        <a class="dropdown-item" href="elements.html">Elements</a>-->
+<!--                                    </div>-->
+<!--                                </li>-->
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link" href="contact.html">Contact</a>-->
+<!--                                </li>-->
+                            </ul>
+                        </div>
+                         <div >
+
+                                {% if request.session.username1 %}
+                                  <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown5"
+                                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <span class="btn_1 d-none d-sm-block"> {{request.session.username1}}</span>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{% url 'edituser' %}"> Edit</a>
+                                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                                        </div>
+                                  </li>
+<!--                                <span></span>-->
+                                {% else %}
+                                <a class="nav-link" href="{% url 'signin' %}">Signup/Login</a>
+                                {% endif %}
+                         </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+
+<div>
+
+  <div class="movie-container" style="margin-top:500px">
+      <select id="movie">
+          {% for d in det_data %}
+          <option value="150">{{d.Movie_Name}}</option>
+          {% endfor %}
+      </select>
+  </div>
+
+    <ul class="showcase">
+      <li>
+        <div class="seat"></div>
+        <small>N/A</small>
+      </li>
+
+      <li>
+        <div class="seat selected"></div>
+        <small>Selected</small>
+      </li>
+
+      <li>
+        <div class="seat occupied"></div>
+        <small>Occupied</small>
+      </li>
+    </ul>
+    <div class="screen"></div>
+    <div class="container">
+
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+      </div>
+
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+      </div>
+    </div>
+
+    <p class="text">
+      You have selected <span id="count">0</span> seats for a price of $<span id="total">0</span>
+    </p>
+
+</div>
+  <footer class="footer_part">
+            <div class="footer_top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <a href="index.html" class="footer_logo_iner"> <img src="{% static 'img/logo.png' %}" alt="#"> </a>
+                                <p>Enjoy Your Movies and Matches With Us
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <h4>Contact Info</h4>
+                                <p>Address : Demo Website,Project
+                                    India.</p>
+                                <p>Phone : +8880 44338899</p>
+                                <p>Email : demo@ticket.com</p>
+                            </div>
+                        </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="single_footer_part">
+                            <h4>Important Link</h4>
+                            <ul class="list-unstyled">
+                                <li><a href=""> WHMCS-bridge</a></li>
+                                <li><a href="">Search Domain</a></li>
+                                <li><a href="">My Account</a></li>
+                                <li><a href="">Shopping Cart</a></li>
+                                <li><a href="">Our Shop</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+<!--                        <div class="single_footer_part">-->
+<!--                            <h4>Newsletter</h4>-->
+<!--                            <p>Heaven fruitful doesn't over lesser in days. Appear creeping seasons deve behold-->
+<!--                                bearing-->
+<!--                                days-->
+<!--                                open-->
+<!--                            </p>-->
+<!--                            <div id="mc_embed_signup">-->
+<!--                                <form target="_blank"-->
+<!--                                    action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"-->
+<!--                                    method="get" class="subscribe_form relative mail_part">-->
+<!--                                    <input type="email" name="email" id="newsletter-form-email"-->
+<!--                                        placeholder="Email Address" class="placeholder hide-on-focus"-->
+<!--                                        onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '">-->
+<!--                                    <button type="submit" name="submit" id="newsletter-submit"-->
+<!--                                        class="email_icon newsletter-submit button-contactForm"><i-->
+<!--                                            class="far fa-paper-plane"></i></button>-->
+<!--                                    <div class="mt-10 info"></div>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!--::footer_part end::-->
+    <!-- jquery plugins here-->
+<!--    <script src="{% static 'js/jquery-1.12.1.min.js' %}"></script>-->
+<!--    &lt;!&ndash; popper js &ndash;&gt;-->
+<!--    <script src="{% static 'js/popper.min.js' %}"></script>-->
+<!--    &lt;!&ndash; bootstrap js &ndash;&gt;-->
+<!--    <script src="{% static 'js/bootstrap.min.js' %}"></script>-->
+<!--    &lt;!&ndash; easing js &ndash;&gt;-->
+<!--    <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>-->
+<!--    &lt;!&ndash; swiper js &ndash;&gt;-->
+<!--    <script src="{% static 'js/swiper.min.js' %}"></script>-->
+<!--    &lt;!&ndash; swiper js &ndash;&gt;-->
+<!--    <script src="{% static 'js/masonry.pkgd.js' %}"></script>-->
+<!--    &lt;!&ndash; particles js &ndash;&gt;-->
+<!--    <script src="{% static 'js/owl.carousel.min.js' %}"></script>-->
+<!--    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>-->
+<!--    &lt;!&ndash; slick js &ndash;&gt;-->
+<!--    <script src="{% static 'js/slick.min.js' %}"></script>-->
+<!--    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>-->
+<!--    <script src="{% static 'js/waypoints.min.js' %}"></script>-->
+<!--    <script src="{% static 'js/contact.js' %}"></script>-->
+<!--    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>-->
+<!--    <script src="{% static 'js/jquery.form.js' %}"></script>-->
+<!--    <script src="{% static 'js/jquery.validate.min.js' %}"></script>-->
+<!--    <script src="{% static 'js/mail-script.js' %}"></script>-->
+<!--    &lt;!&ndash; custom js &ndash;&gt;-->
+<!--    <script src="{% static 'js/custom.js' %}"></script>-->
+    <script src="{% static 'book/script.js' %}"></script>
+</body>
+</html>
